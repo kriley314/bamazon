@@ -50,7 +50,7 @@ function handleSales( results ) {
 
             return choiceArray;
         },
-        message: "What item would you like to purchase? (q to quit)",
+        message: "What item would you like to purchase? (<ctrl>-c to quit)",
     },
     {
         name: "howMany",
