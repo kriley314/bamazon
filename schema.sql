@@ -14,13 +14,13 @@ CREATE TABLE products (
 );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
-VALUES ( "Rubik's Cube", "Puzzles", "8.99", "1000" );
+VALUES ( "Rubiks Cube", "Puzzles", "8.99", "1000" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
-VALUES ( "Rubik's Cube 4x4", "Puzzles", "17.99", "1000" );
+VALUES ( "Rubiks Cube 4x4", "Puzzles", "17.99", "1000" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
-VALUES ( "Rubik's Cube 2x2", "Puzzles", "4.59", "1000" );
+VALUES ( "Rubiks Cube 2x2", "Puzzles", "4.59", "1000" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
 VALUES ( "Celestron - PowerSeeker 70EQ Refractor Telescope - Black", "Outdoors", "114.99", "50" );

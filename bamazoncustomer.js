@@ -1,6 +1,9 @@
 var mysql = require( "mysql" );
 var inquirer = require( "inquirer" );
 
+// Defining this globally to avoid threading issues.
+var transactionCost = 0;
+
 var connection = mysql.createConnection({
     host: "localhost",
   
@@ -23,66 +26,59 @@ var connection = mysql.createConnection({
   
   function afterConnection() {
     readInventory();
-
-    // After displaying the current product inventory, check to see what the customer would like to buy..
-
-//    readSongsRange();
-//    readSpecificSong();
   }
   
 function readInventory() {
     connection.query("SELECT product_name, department_name, price, stock_quantity FROM products", function( err, res ) {
         if ( err ) throw err;
         console.table( res );
-        whatWouldYouLikeToBuy();
+        handleSales( res );
     });
 }
 
-function whatWouldYouLikeToBuy() {
-    console.log( "Made it into asking what they would like to buy.." );
+function handleSales( results ) {
     inquirer
-      .prompt([
-      {
-        name: "purchaseProduct",
-        type: "input",
-        message: "Which of these fine products would you like to purchase first?",
-        validate: function( value ) {
-            if ( isNaN( value ) === false ) {
-              return true;
+    .prompt([
+    {
+        name: "choice",
+        type: "rawlist",
+        choices: function() {
+            var choiceArray = [];
+            for ( var i = 0; i < results.length; i++ ) {
+                choiceArray.push( results[ i ].product_name );
             }
-            return false;
-        }
-      },
-      {
-        name: "units",
+            return choiceArray;
+        },
+        message: "What item would you like to purchase?"
+    },
+    {
+        name: "howMany",
         type: "input",
         message: "How many of this item would you like to purchase at this time? ",
         validate: function( value ) {
-        if ( isNaN( value ) ===  false ) {
-              return true;
-            }
-            return false;
+            return ( value > 0 )
         }
-      }])
-      .then( function( answer ) {
-/*
-        var query = "SELECT position,song,artist,year FROM top5000 WHERE position BETWEEN ? AND ?";
-        connection.query(query, [answer.start, answer.end], function(err, res) {
-          for (var i = 0; i < res.length; i++) {
-            console.log(
-              "Position: " +
-                res[i].position +
-                " || Song: " +
-                res[i].song +
-                " || Artist: " +
-                res[i].artist +
-                " || Year: " +
-                res[i].year
-            );
-          }
-          runSearch();
-        });
-      });
-*/
+    }])
+    .then( function( answers ) {
+        // So.. They want to buy something.  Let's see if we have enough of "those"..
+        for ( var i = 0; i < results.length; i++ ) {
+            if ( answers.choice === results[ i ].product_name ) {
+                // Do we have enough?
+                if ( results[ i ].stock_quantity >= answers.howMany ) {
+                    var howManyLeft = results[ i ].stock_quantity - answers.howMany;
+                    transactionCost = answers.howMany * results[ i ].price;
+                    myQuery = "UPDATE products SET stock_quantity=" + howManyLeft + 
+                              " WHERE item_id=" + ( i + 1 );
+                    connection.query( myQuery, function( err, res ) {
+                        if ( err ) throw err;
+                        console.log( "You account has been debited, $" + parseFloat( transactionCost ).toFixed( 2 ));
+                        readInventory();
+                    });
+                } else {
+                    console.log( "Unfortunately we don't currently have that many in stock - we can only sell you " + results[ i ].stock_quantity + " at the moment." );
+                    readInventory();
+                }
+            }
+        }
     });
 }
