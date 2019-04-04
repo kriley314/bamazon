@@ -47,9 +47,10 @@ function handleSales( results ) {
             for ( var i = 0; i < results.length; i++ ) {
                 choiceArray.push( results[ i ].product_name );
             }
+
             return choiceArray;
         },
-        message: "What item would you like to purchase?"
+        message: "What item would you like to purchase? (q to quit)",
     },
     {
         name: "howMany",
