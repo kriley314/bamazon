@@ -68,8 +68,8 @@ function handleSales( results ) {
                 if ( results[ i ].stock_quantity >= answers.howMany ) {
                     var howManyLeft = results[ i ].stock_quantity - answers.howMany;
                     transactionCost = answers.howMany * results[ i ].price;
-                    myQuery = "UPDATE products SET stock_quantity=" + howManyLeft + 
-                              " WHERE item_id=" + ( i + 1 );
+                    var myQuery = "UPDATE products SET stock_quantity=" + howManyLeft + 
+                                  " WHERE item_id=" + ( i + 1 );
                     connection.query( myQuery, function( err, res ) {
                         if ( err ) throw err;
                         console.log( "You account has been debited, $" + parseFloat( transactionCost ).toFixed( 2 ));

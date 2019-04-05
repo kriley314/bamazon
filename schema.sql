@@ -23,13 +23,13 @@ INSERT INTO products ( product_name, department_name, price, stock_quantity )
 VALUES ( "Rubiks Cube 2x2", "Puzzles", "4.59", "1000" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
-VALUES ( "Celestron - PowerSeeker 70EQ Refractor Telescope - Black", "Outdoors", "114.99", "50" );
+VALUES ( "Celestron - PowerSeeker 70EQ Refractor Telescope - Black", "Outdoors", "114.99", "8" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
-VALUES ( "350X Magnification 700x70mm Telescope", "Outdoors", "189.99", "40" );
+VALUES ( "350X Magnification 700x70mm Telescope", "Outdoors", "189.99", "15" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
-VALUES ( "Celestron - CPC 1100 GPS Schmidt-Cassegrain Computerized Telescope - Black", "Outdoors", "2999.99", "10" );
+VALUES ( "Celestron - CPC 1100 GPS Schmidt-Cassegrain Computerized Telescope - Black", "Outdoors", "2999.99", "4" );
 
 INSERT INTO products ( product_name, department_name, price, stock_quantity )
 VALUES ( "Insignia™ - 2-Way Indoor/Outdoor Speakers (Pair) - Black", "Audio/Video", "39.99", "500" );
