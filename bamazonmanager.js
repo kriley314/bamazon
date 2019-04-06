@@ -26,7 +26,7 @@ function topLevelMenu() {
     .prompt({
       name: "managerFunction",
       type: "list",
-      message: "Would you like to view [View Products], [View Low Inventory], [Add Inventory], or [Add a Product]?",
+      message: "Would you like to [View Products], [View Low Inventory], [Add Inventory], or [Add a Product]?",
       choices: [ "View Products", "View Low Inventory", "Add Inventory", "Add a Product", "Exit" ]
     })
     .then( function( answer ) {
